@@ -2,20 +2,28 @@
 <html>
 <head>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+       function greetUser() {
+           // 检查Telegram.WebApp对象是否存在以及用户信息是否可用
+           if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe && Telegram.WebApp.initDataUnsafe.user) {
+               // 获取用户名
+               var username = Telegram.WebApp.initDataUnsafe.user.username;
+               // 如果用户名存在，则显示"Hello username"
+               if (username) {
+                   document.getElementById('greeting').textContent = 'Hello ' + username + '!';
+                   return;
+               }
+           }
+           // 如果Telegram对象不存在或者没有用户名信息，则显示"Hello World!"
+           document.getElementById('greeting').textContent = 'Hello World!';
+       }
+
+       // 在文档加载完毕后执行greetUser函数
+       document.addEventListener('DOMContentLoaded', greetUser);
+</script>
 </head>
 <body>
  <h1 id="greating"></h1>
  <p>A nice day. Good Luck for you. </p>
- <script>
-    // 初始化 Telegram Web App
-    Telegram.WebApp.init();
-
-    // 获取当前用户的 username
-    const userName = Telegram.WebApp.initData.user.username;
-
-    // 更新页面内容
-    const greetingElement = document.getElementById('greeting');
-    greetingElement.textContent = `Hello ${userName}`;
-  </script>
 </body>
 </html>
